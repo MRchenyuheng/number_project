@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstring>
+#include<ctime>
 
 using namespace std;
 
@@ -109,18 +110,47 @@ void work(int n)
 	return;
 }
 
+
+int get_time()
+{
+	time_t timep;
+    time(&timep);
+    char tmp[256];
+    //strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", localtime(&timep));
+    //cout << tmp << endl;
+    strftime(tmp,sizeof(tmp),"%S",localtime(&timep));
+    int tt = tmp[0] - '0'; tt *= 10; tt += tmp[1] - '0';
+	 
+	return tt;
+} 
 int main()
 {  
    init();
-   show_map();
-   for(int i = 0;i< 10;i ++)
-   {
-   	system("pause");
-   	system("cls");
-   	work(i);
-   	show_map();
-   	
-   }
+   
+   int before = -1;
+   
+   while(1) if(get_time() == 0) break;
+   
+    while(1)
+    {    
+        int t = get_time() % 10;
+    	if(t == (before + 1) % 10)
+    	{
+    		before = t % 10;
+    		system("cls");
+    		show_map();
+    		work(before);
+		}
+	}
+//  show_map();
+//   for(int i = 0;i< 10;i ++)
+//   {
+//   	system("pause");
+//   	system("cls");
+//   	work(i);
+//   	show_map();
+//   	
+//   }
    
 }
 
